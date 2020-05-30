@@ -17,7 +17,7 @@ interface ApiService {
         // http://api.openweathermap.org/data/2.5/forecast?q=jakarta&cnt=5&units=metric&appId=8828e93aa68573092492094256559cb5
         private const val BASE_ENDPOINT: String = "https://api.openweathermap.org/"
         const val APP_ID: String = "8828e93aa68573092492094256559cb5"
-        const val DEFAULT_FORECAST_DAYS_COUNT: Int = 5 // including today
+        const val DEFAULT_FORECAST_DAYS_COUNT: Int = 5 // including today. TODO reconfirm if we want next 4 days or next 7 days..
         const val DEFAULT_UNIT: String = "metric"
 
         operator fun invoke(): ApiService {
