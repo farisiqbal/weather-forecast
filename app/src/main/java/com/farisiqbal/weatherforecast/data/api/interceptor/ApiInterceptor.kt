@@ -1,5 +1,6 @@
-package com.farisiqbal.weatherforecast.data.api
+package com.farisiqbal.weatherforecast.data.api.interceptor
 
+import com.farisiqbal.weatherforecast.data.api.ApiService
 import okhttp3.Interceptor
 import okhttp3.Response
 

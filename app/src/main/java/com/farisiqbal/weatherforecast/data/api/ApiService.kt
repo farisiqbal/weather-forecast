@@ -1,5 +1,6 @@
 package com.farisiqbal.weatherforecast.data.api
 
+import com.farisiqbal.weatherforecast.data.api.interceptor.ApiInterceptor
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -14,7 +15,6 @@ interface ApiService {
     companion object {
         // sample request :
         // http://api.openweathermap.org/data/2.5/forecast?q=jakarta&cnt=5&units=metric&appId=8828e93aa68573092492094256559cb5
-
         private const val BASE_ENDPOINT: String = "https://api.openweathermap.org/"
         const val APP_ID: String = "8828e93aa68573092492094256559cb5"
         const val DEFAULT_FORECAST_DAYS_COUNT: Int = 5 // including today
@@ -32,6 +32,10 @@ interface ApiService {
                 .build()
                 .create(ApiService::class.java)
         }
+
+        // error messages
+        const val ERROR_DEFAULT = "Request did not succeed"
+        const val ERROR_NO_NETWORK = "No network connection"
     }
 
     @GET("data/2.5/forecast")
