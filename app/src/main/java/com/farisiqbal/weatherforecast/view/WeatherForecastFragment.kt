@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farisiqbal.weatherforecast.R
+import com.farisiqbal.weatherforecast.utils.toDegree
 import com.farisiqbal.weatherforecast.view.adapter.WeatherForecastListAdapter
 import kotlinx.android.synthetic.main.weather_forecast_fragment.*
 
@@ -32,11 +33,17 @@ class WeatherForecastFragment : Fragment() {
     }
 
     fun bindViewModel() {
-        viewModel = ViewModelProviders.of(this).get(WeatherForecastViewModel::class.java)
+        val factory = WeatherForecastViewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(WeatherForecastViewModel::class.java)
 
-        viewModel.weatherForecasts.observe(viewLifecycleOwner, Observer {
+        viewModel.weatherForecastResponse.observe(viewLifecycleOwner, Observer { data ->
             layoutMain.visibility = View.VISIBLE
-            adapter.updateData(it)
+            tvCurrentLocation.text = data.city.name
+            val forecasts = data.list
+            adapter.updateData(forecasts)
+            if (forecasts.isNotEmpty()) {
+                tvCurrentTemperature.text = forecasts.first().main.temp.toDegree()
+            }
         })
 
         viewModel.isLoading.observe(viewLifecycleOwner, Observer {
@@ -62,8 +69,7 @@ class WeatherForecastFragment : Fragment() {
         // setup searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.setNewQuery(query ?: "")
-                viewModel.getForecastData()
+                viewModel.getForecastData(query ?: "")
                 return false
             }
 
