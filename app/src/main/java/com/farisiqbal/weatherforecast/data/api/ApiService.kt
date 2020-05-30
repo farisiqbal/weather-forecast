@@ -41,8 +41,6 @@ interface ApiService {
     @GET("data/2.5/forecast")
     suspend fun getForecasts(
         @Query("q") query: String,
-        @Query("lat") latitude: Double?,
-        @Query("lon") longitude: Double?,
         @Query("cnt") count: Int = DEFAULT_FORECAST_DAYS_COUNT,
         @Query("units") page: String = DEFAULT_UNIT
     ): WeatherForecastResponse
