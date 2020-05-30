@@ -15,7 +15,7 @@ class WeatherForecastViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         itemView.apply {
             val weather = item.weather.firstOrNull()
             tvWeatherDate.text = item.dtTxt // todo use formatting
-            ivWeatherIcon.setWeatherIconUrl(context, weather?.icon)
+            ivWeatherIcon.setWeatherIconUrl(weather?.icon)
             tvWeatherDescription.text = weather?.description
             tvWeatherTemperature.text = item.main.getTemperatureRangeText()
         }

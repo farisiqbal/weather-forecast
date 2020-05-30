@@ -11,7 +11,7 @@ import com.farisiqbal.weatherforecast.data.api.response.WeatherForecast
  */
 class WeatherForecastListAdapter : RecyclerView.Adapter<WeatherForecastViewHolder>() {
 
-    private var items: List<WeatherForecast> = listOf()
+    private val items: MutableList<WeatherForecast> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherForecastViewHolder {
         return WeatherForecastViewHolder(
@@ -26,7 +26,8 @@ class WeatherForecastListAdapter : RecyclerView.Adapter<WeatherForecastViewHolde
     }
 
     fun updateData(newItems: List<WeatherForecast>) {
-        items = newItems
+        items.clear()
+        items.addAll(newItems)
         notifyDataSetChanged()
     }
 }

@@ -4,6 +4,8 @@
     <dimen name="space_x8">8dp</dimen>
     <dimen name="space_x12">12dp</dimen>
     <dimen name="space_x16">16dp</dimen>
+    <dimen name="space_x24">24dp</dimen>
+    <dimen name="space_x36">36dp</dimen>
     <dimen name="space_x64">64dp</dimen>
 
     <dimen name="font_x14">14sp</dimen>

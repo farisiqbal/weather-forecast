@@ -7,46 +7,6 @@
     tools:context=".view.WeatherForecastFragment">
 
     <LinearLayout
-        android:id="@+id/layoutLoading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/ochreLight"
-        android:gravity="center"
-        tools:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:progressTint="@color/white" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutError"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/ochreLight"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="gone">
-
-        <ImageView
-            android:id="@+id/ivErrorIcon"
-            android:layout_width="@dimen/space_x64"
-            android:layout_height="@dimen/space_x64"
-            android:src="@drawable/ic_warning" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/retry"
-            android:textColor="@color/ink"
-            android:textSize="@dimen/font_x24" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,7 +16,8 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_x12"
+            android:layout_marginVertical="@dimen/space_x8"
+            android:layout_marginRight="@dimen/space_x8"
             android:elevation="@dimen/space_x4"
             android:paddingTop="@dimen/space_x12"
             android:paddingBottom="@dimen/space_x12"
@@ -92,6 +53,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:listitem="@layout/weather_card_item" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ochreLight"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progressTint="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ochreLight"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivErrorIcon"
+            android:layout_width="@dimen/space_x64"
+            android:layout_height="@dimen/space_x64"
+            android:src="@drawable/ic_warning" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:textColor="@color/ink"
+            android:textSize="@dimen/font_x24" />
 
     </LinearLayout>
 </FrameLayout>

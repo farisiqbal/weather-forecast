@@ -17,15 +17,16 @@ class WeatherForecastViewModel(
     val weatherForecastResponse = MutableLiveData<WeatherForecastResponse>()
     val isLoading = MutableLiveData<Boolean>()
     val isError = MutableLiveData<Boolean>()
-    // private var query: String = ""
+    private var query: String = ""
 
-    // fun setNewQuery(newQuery: String) {
-    //     if (newQuery != query) {
-    //         query = newQuery
-    //     }
-    // }
+    fun setNewQuery(newQuery: String) {
+        if (newQuery != query) {
+            query = newQuery
+        }
+    }
 
-    fun getForecastData(query: String) {
+    fun getForecastData() {
+        isError.value = false
         isLoading.value = true
         viewModelScope.launch {
             val result = repository.getWeatherForecastData(query)

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farisiqbal.weatherforecast.R
+import com.farisiqbal.weatherforecast.utils.setVisible
 import com.farisiqbal.weatherforecast.utils.toDegree
 import com.farisiqbal.weatherforecast.view.adapter.WeatherForecastListAdapter
 import kotlinx.android.synthetic.main.weather_forecast_fragment.*
@@ -37,7 +38,6 @@ class WeatherForecastFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(WeatherForecastViewModel::class.java)
 
         viewModel.weatherForecastResponse.observe(viewLifecycleOwner, Observer { data ->
-            layoutMain.visibility = View.VISIBLE
             tvCurrentLocation.text = data.city.name
             val forecasts = data.list
             adapter.updateData(forecasts)
@@ -46,18 +46,18 @@ class WeatherForecastFragment : Fragment() {
             }
         })
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer {
-            layoutLoading.visibility = View.VISIBLE
-            layoutMain.visibility = View.GONE
-            layoutError.visibility = View.GONE
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
+            layoutLoading.setVisible(isLoading)
         })
 
         // todo improve error handling better than default requirements. should be able to set new query
-        viewModel.isError.observe(viewLifecycleOwner, Observer {
-            layoutError.visibility = View.VISIBLE
-            layoutLoading.visibility = View.GONE
-            layoutMain.visibility = View.GONE
+        viewModel.isError.observe(viewLifecycleOwner, Observer { isError ->
+            layoutError.setVisible(isError)
         })
+
+        // initial request
+        viewModel.setNewQuery("jakarta")
+        viewModel.getForecastData()
     }
 
     fun bindUI() {
@@ -69,7 +69,8 @@ class WeatherForecastFragment : Fragment() {
         // setup searchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.getForecastData(query ?: "")
+                viewModel.setNewQuery(query ?: "")
+                viewModel.getForecastData()
                 return false
             }
 
@@ -77,5 +78,10 @@ class WeatherForecastFragment : Fragment() {
                 return false
             }
         })
+
+        // error
+        ivErrorIcon.setOnClickListener {
+            viewModel.getForecastData()
+        }
     }
 }
