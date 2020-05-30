@@ -1,4 +1,4 @@
-package com.farisiqbal.weatherforecast.data.response
+package com.farisiqbal.weatherforecast.data.api.response
 
 
 import com.google.gson.annotations.SerializedName
