@@ -11,7 +11,7 @@ data class WeatherForecastResponse(
     @SerializedName("cod")
     val cod: String,
     @SerializedName("list")
-    val list: List<DailyWeatherData>,
+    val list: List<WeatherForecast>,
     @SerializedName("message")
     val message: Int
 )

@@ -3,7 +3,7 @@ package com.farisiqbal.weatherforecast.data.api.response
 
 import com.google.gson.annotations.SerializedName
 
-data class DailyWeatherData(
+data class WeatherForecast(
     @SerializedName("clouds")
     val clouds: Clouds,
     @SerializedName("dt")
