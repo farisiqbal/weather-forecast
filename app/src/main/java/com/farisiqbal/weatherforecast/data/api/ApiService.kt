@@ -17,7 +17,8 @@ interface ApiService {
         // http://api.openweathermap.org/data/2.5/forecast?q=jakarta&cnt=5&units=metric&appId=8828e93aa68573092492094256559cb5
         private const val BASE_ENDPOINT: String = "https://api.openweathermap.org/"
         const val APP_ID: String = "8828e93aa68573092492094256559cb5"
-        const val DEFAULT_FORECAST_DAYS_COUNT: Int = 7 // including today. TODO reconfirm if we want next 4 days or next 7 days..
+        const val DEFAULT_FORECAST_DAYS_COUNT: Int = 4
+        const val THREE_HOURLY_DATA_TO_DAY_MULTIPLIER: Int = 8 // since we don't use paid account to get real daily forecasts
         const val DEFAULT_UNIT: String = "metric"
 
         operator fun invoke(): ApiService {
@@ -41,7 +42,7 @@ interface ApiService {
     @GET("data/2.5/forecast")
     suspend fun getForecasts(
         @Query("q") query: String,
-        @Query("cnt") count: Int = DEFAULT_FORECAST_DAYS_COUNT,
+        @Query("cnt") count: Int = DEFAULT_FORECAST_DAYS_COUNT * THREE_HOURLY_DATA_TO_DAY_MULTIPLIER,
         @Query("units") page: String = DEFAULT_UNIT
     ): WeatherForecastResponse
 }

@@ -39,7 +39,7 @@ class WeatherForecastFragment : Fragment() {
 
         viewModel.weatherForecastResponse.observe(viewLifecycleOwner, Observer { data ->
             tvCurrentLocation.text = data.city.name
-            val forecasts = data.list
+            val forecasts = data.list.distinctBy { it.dtTxt.split(" ").first() }
             adapter.updateData(forecasts)
             if (forecasts.isNotEmpty()) {
                 tvCurrentTemperature.text = forecasts.first().main.temp.toDegree()
