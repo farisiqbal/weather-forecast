@@ -2,9 +2,12 @@
 <resources>
     <dimen name="space_x4">4dp</dimen>
     <dimen name="space_x8">8dp</dimen>
+    <dimen name="space_x12">12dp</dimen>
     <dimen name="space_x16">16dp</dimen>
+    <dimen name="space_x64">64dp</dimen>
 
     <dimen name="font_x14">14sp</dimen>
     <dimen name="font_x20">20sp</dimen>
     <dimen name="font_x24">24sp</dimen>
+    <dimen name="font_x32">32sp</dimen>
 </resources>
