@@ -44,7 +44,7 @@ class WeatherForecastViewModelTest {
     @Test
     fun `setNewQuery would update query`() {
         // GIVEN
-        viewModel.query = "old query"
+        viewModel.query = "previous query"
         val newQuery = "a new query"
 
         // WHEN

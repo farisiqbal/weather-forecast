@@ -3,11 +3,9 @@ package com.farisiqbal.weatherforecast.data.repository
 import com.farisiqbal.weatherforecast.data.api.ApiService
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
@@ -34,7 +32,7 @@ class WeatherForecastRepositoryImplTest {
         val mockUnit = "a unit"
 
         // WHEN
-        runBlockingTest {
+        runBlocking {
             repository.getWeatherForecastData(mockQuery, mockCount, mockUnit)
         }
 
