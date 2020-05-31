@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farisiqbal.weatherforecast.R
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
@@ -15,10 +14,11 @@ import com.farisiqbal.weatherforecast.utils.setVisible
 import com.farisiqbal.weatherforecast.utils.toDegree
 import com.farisiqbal.weatherforecast.view.adapter.WeatherForecastListAdapter
 import kotlinx.android.synthetic.main.weather_forecast_fragment.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class WeatherForecastFragment : Fragment() {
 
-    private lateinit var viewModel: WeatherForecastViewModel
+    private val viewModel: WeatherForecastViewModel by viewModel()
     private lateinit var adapter: WeatherForecastListAdapter
 
     override fun onCreateView(
@@ -35,8 +35,8 @@ class WeatherForecastFragment : Fragment() {
     }
 
     fun bindViewModel() {
-        val factory = WeatherForecastViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(WeatherForecastViewModel::class.java)
+        // val factory = WeatherForecastViewModelFactory()
+        // viewModel = ViewModelProvider(this, factory).get(WeatherForecastViewModel::class.java)
 
         viewModel.weatherForecastResponse.observe(viewLifecycleOwner, Observer { data ->
             tvCurrentLocation.text = data.city.name

@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherForecastViewModel(
-    private val repository: WeatherForecastRepository = WeatherForecastRepositoryImpl(),
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
+    private val repository: WeatherForecastRepository,// = WeatherForecastRepositoryImpl(),
+    private val dispatcher: CoroutineDispatcher// = Dispatchers.Main
 ) : ViewModel() {
 
     // main view states

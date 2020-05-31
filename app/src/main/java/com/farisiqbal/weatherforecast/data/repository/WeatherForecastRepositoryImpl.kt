@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
  * Created by farisiqbal on 30/05/2020
  */
 class WeatherForecastRepositoryImpl(
-    private val service: ApiService = ApiService()
+    private val service: ApiService// = ApiService()
 ) : WeatherForecastRepository, SafeApiRequest {
     override suspend fun getWeatherForecastData(
         query: String,
