@@ -16,4 +16,9 @@ fun WeatherForecast.getWeatherDateText(): String? {
     }
 }
 
+// convert 3 hourly data to daily data. take one of each day
+fun List<WeatherForecast>.getDailyData(): List<WeatherForecast> {
+    return this.distinctBy { it.dtTxt.split(" ").first() }
+}
+
 fun Double.toDegree(): String = "${this.toInt()}°"

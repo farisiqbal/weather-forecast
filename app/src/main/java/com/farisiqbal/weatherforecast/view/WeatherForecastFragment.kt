@@ -34,13 +34,17 @@ class WeatherForecastFragment : Fragment() {
         bindUI()
     }
 
-    fun bindViewModel() {
-        // val factory = WeatherForecastViewModelFactory()
-        // viewModel = ViewModelProvider(this, factory).get(WeatherForecastViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // initial request
+        viewModel.setNewQuery(WeatherForecastRepository.DEFAULT_CITY_QUERY)
+        viewModel.getForecastData()
+    }
 
+    fun bindViewModel() {
         viewModel.weatherForecastResponse.observe(viewLifecycleOwner, Observer { data ->
             tvCurrentLocation.text = data.city.name
-            val forecasts = data.list.distinctBy { it.dtTxt.split(" ").first() }
+            val forecasts = data.list
             adapter.updateData(forecasts)
             if (forecasts.isNotEmpty()) {
                 tvCurrentTemperature.text = forecasts.first().main.temp.toDegree()
@@ -51,14 +55,9 @@ class WeatherForecastFragment : Fragment() {
             layoutLoading.setVisible(isLoading)
         })
 
-        // todo improve error handling better than default requirements. should be able to set new query
         viewModel.isError.observe(viewLifecycleOwner, Observer { isError ->
             layoutError.setVisible(isError)
         })
-
-        // initial request
-        viewModel.setNewQuery(WeatherForecastRepository.DEFAULT_CITY_QUERY)
-        viewModel.getForecastData()
     }
 
     fun bindUI() {
