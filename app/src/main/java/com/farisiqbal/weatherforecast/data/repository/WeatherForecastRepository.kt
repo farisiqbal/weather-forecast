@@ -17,5 +17,6 @@ interface WeatherForecastRepository {
         const val DEFAULT_FORECAST_DAYS_COUNT: Int = 4
         const val THREE_HOURLY_DATA_TO_DAY_MULTIPLIER: Int = 8 // since we don't use paid account to get real daily forecasts
         const val DEFAULT_UNIT: String = "metric"
+        const val DEFAULT_CITY_QUERY: String = "Jakarta"
     }
 }

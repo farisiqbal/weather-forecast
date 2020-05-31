@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farisiqbal.weatherforecast.R
+import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
 import com.farisiqbal.weatherforecast.utils.setVisible
 import com.farisiqbal.weatherforecast.utils.toDegree
 import com.farisiqbal.weatherforecast.view.adapter.WeatherForecastListAdapter
@@ -56,7 +57,7 @@ class WeatherForecastFragment : Fragment() {
         })
 
         // initial request
-        viewModel.setNewQuery("jakarta")
+        viewModel.setNewQuery(WeatherForecastRepository.DEFAULT_CITY_QUERY)
         viewModel.getForecastData()
     }
 
