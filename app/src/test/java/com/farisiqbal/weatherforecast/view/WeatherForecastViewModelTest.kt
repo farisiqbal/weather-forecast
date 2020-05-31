@@ -10,7 +10,6 @@ import io.mockk.confirmVerified
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -32,7 +31,7 @@ class WeatherForecastViewModelTest {
     private lateinit var repository: WeatherForecastRepository
 
     // observers
-    private lateinit var forecastsObserver: Observer<WeatherForecastResponse>//Int = mockk<Observer<WeatherForecastResponse>>(relaxed = true)
+    private lateinit var forecastsObserver: Observer<WeatherForecastResponse>
     private lateinit var loadingObserver: Observer<Boolean>
     private lateinit var errorObserver: Observer<Boolean>
 
@@ -40,10 +39,6 @@ class WeatherForecastViewModelTest {
     fun setUp() {
         repository = mockk()
         viewModel = WeatherForecastViewModel(repository, Dispatchers.Unconfined)
-    }
-
-    @After
-    fun tearDown() {
     }
 
     @Test
