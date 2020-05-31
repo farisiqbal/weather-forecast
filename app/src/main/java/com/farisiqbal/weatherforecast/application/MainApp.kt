@@ -1,7 +1,6 @@
-package com.farisiqbal.weatherforecast
+package com.farisiqbal.weatherforecast.application
 
 import android.app.Application
-import com.farisiqbal.weatherforecast.di.weatherForecastModule
 import org.koin.core.context.startKoin
 
 /**
@@ -11,7 +10,11 @@ class MainApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
-            modules(weatherForecastModule)
+            modules(listOf(
+                apiModule,
+                repositoryModule,
+                viewModelModule
+            ))
         }
     }
 }

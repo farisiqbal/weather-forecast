@@ -6,14 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.farisiqbal.weatherforecast.data.api.ApiResult
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepositoryImpl
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherForecastViewModel(
-    private val repository: WeatherForecastRepository,// = WeatherForecastRepositoryImpl(),
-    private val dispatcher: CoroutineDispatcher// = Dispatchers.Main
+    private val repository: WeatherForecastRepository,
+    private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     // main view states
