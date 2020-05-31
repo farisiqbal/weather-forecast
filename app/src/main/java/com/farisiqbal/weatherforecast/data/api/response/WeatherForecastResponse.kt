@@ -9,9 +9,9 @@ data class WeatherForecastResponse(
     @SerializedName("cnt")
     val cnt: Int,
     @SerializedName("cod")
-    val cod: String,
+    val cod: Int,
     @SerializedName("list")
     val list: List<WeatherForecast>,
     @SerializedName("message")
-    val message: Int
+    val message: String
 )
