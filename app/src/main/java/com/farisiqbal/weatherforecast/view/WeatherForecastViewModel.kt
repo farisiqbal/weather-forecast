@@ -7,28 +7,29 @@ import com.farisiqbal.weatherforecast.data.api.ApiResult
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepositoryImpl
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherForecastViewModel(
-    private val repository: WeatherForecastRepository = WeatherForecastRepositoryImpl()
+    private val repository: WeatherForecastRepository = WeatherForecastRepositoryImpl(),
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ) : ViewModel() {
 
     // main view states
     val weatherForecastResponse = MutableLiveData<WeatherForecastResponse>()
     val isLoading = MutableLiveData<Boolean>()
     val isError = MutableLiveData<Boolean>()
-    private var query: String = ""
+    var query: String = ""
 
     fun setNewQuery(newQuery: String) {
-        if (newQuery != query) {
-            query = newQuery
-        }
+        query = newQuery
     }
 
     fun getForecastData() {
         isError.value = false
         isLoading.value = true
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher) {
             val result = repository.getWeatherForecastData(query)
             if (result is ApiResult.Success) {
                 weatherForecastResponse.value = result.value
