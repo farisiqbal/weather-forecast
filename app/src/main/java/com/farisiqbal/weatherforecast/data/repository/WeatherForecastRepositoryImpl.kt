@@ -13,12 +13,12 @@ class WeatherForecastRepositoryImpl(
     private val service: ApiService = ApiService()
 ) : WeatherForecastRepository, SafeApiRequest {
     override suspend fun getWeatherForecastData(
-        query: String//,
-        // forecastDayCount: Int,
-        // units: String
+        query: String,
+        forecastDayCount: Int,
+        units: String
     ): ApiResult<WeatherForecastResponse> {
         return safeApiCall(Dispatchers.IO) {
-            service.getForecasts(query)
+            service.getForecasts(query, forecastDayCount, units)
         }
     }
 }
