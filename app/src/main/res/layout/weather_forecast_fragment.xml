@@ -7,7 +7,6 @@
     tools:context=".view.WeatherForecastFragment">
 
     <LinearLayout
-        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -23,36 +22,75 @@
             android:paddingBottom="@dimen/space_x12"
             app:iconifiedByDefault="false" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@color/azureLight"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvCurrentTemperature"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/layoutMain"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_x32"
-                android:textStyle="bold"
-                tools:text="17°" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvCurrentLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_x20"
-                tools:text="Jakarta" />
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/azureLight"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/weather_card_item" />
+                    <TextView
+                        android:id="@+id/tvCurrentTemperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_x32"
+                        android:textStyle="bold"
+                        tools:text="17°" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/font_x20"
+                        tools:text="Jakarta" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/weather_card_item" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/ochreLight"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ivErrorIcon"
+                    android:layout_width="@dimen/space_x64"
+                    android:layout_height="@dimen/space_x64"
+                    android:src="@drawable/ic_warning" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/retry"
+                    android:textColor="@color/ink"
+                    android:textSize="@dimen/font_x24" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -72,28 +110,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layoutError"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/ochreLight"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="gone">
-
-        <ImageView
-            android:id="@+id/ivErrorIcon"
-            android:layout_width="@dimen/space_x64"
-            android:layout_height="@dimen/space_x64"
-            android:src="@drawable/ic_warning" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/retry"
-            android:textColor="@color/ink"
-            android:textSize="@dimen/font_x24" />
-
-    </LinearLayout>
 </FrameLayout>
