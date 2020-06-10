@@ -14,9 +14,9 @@ import retrofit2.http.Query
 interface ApiService {
     companion object {
         // sample request :
-        // http://api.openweathermap.org/data/2.5/forecast?q=jakarta&cnt=5&units=metric&appId=8828e93aa68573092492094256559cb5
+        // http://api.openweathermap.org/data/2.5/forecast?q=jakarta&cnt=5&units=metric&appId=yourappid
         private const val BASE_ENDPOINT: String = "https://api.openweathermap.org/"
-        const val APP_ID: String = "8828e93aa68573092492094256559cb5"
+        const val APP_ID: String = "yourappid"
 
         operator fun invoke(): ApiService {
             val okHttpClient = OkHttpClient.Builder()
