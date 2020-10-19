@@ -2,17 +2,23 @@ package com.farisiqbal.weatherforecast.utils
 
 import com.farisiqbal.weatherforecast.data.api.response.Main
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecast
-import java.util.Date
 
 // data extensions
-fun Main.getTemperatureRangeText(): String = "${tempMin.toDegree()}/${tempMax.toDegree()}"
+fun Main.getTemperatureRangeText(): String {
+    return if (tempMin.toInt() == tempMax.toInt()) {
+        tempMin.toDegree()
+    } else {
+        "${tempMin.toDegree()} to ${tempMax.toDegree()}"
+    }
+}
 
 fun WeatherForecast.getWeatherDateText(): String? {
-    val forecastDate = dateFormatDash.parse(dtTxt)
-    return when (forecastDate.getDaysDifference()) {
-        0L -> "Today"
-        1L -> "Tomorrow"
-        else -> forecastDate.formatDate()
+    val date = dateFormatDash.parse(dtTxt)
+    val hour = date.formatDate(hourFormat)
+    return when (date.getDaysDifference()) {
+        0L -> "Today, $hour"
+        1L -> "Tomorrow, $hour"
+        else -> date.formatDate(dateHourFormat)
     }
 }
 

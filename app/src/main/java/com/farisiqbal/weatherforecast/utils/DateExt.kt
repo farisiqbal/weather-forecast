@@ -14,12 +14,14 @@ import kotlin.math.abs
  */
 private val localeID = Locale("en", "id")
 
-// Example: "02 Feb 2017"
-val dateFormat = SimpleDateFormat("dd MMM yyyy", localeID)
-// Example: "2020-06-23"
-val dateFormatDash = SimpleDateFormat("yyyy-MM-dd", localeID)
+// Example: "2020-06-23" (default format by API)
+val dateFormatDash = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", localeID)
+// Example: "02 Feb 2017, 7PM"
+val dateHourFormat = SimpleDateFormat("dd MMM yyyy, haa", localeID)
+// Example : "9AM"
+val hourFormat = SimpleDateFormat("haa", localeID)
 
-fun Date?.formatDate(formatter: DateFormat = dateFormat): String? = this?.let { formatter.format(it) }
+fun Date?.formatDate(formatter: DateFormat): String? = this?.let { formatter.format(it) }
 
 fun Date?.getDaysDifference(now: Date = Calendar.getInstance().time): Long {
     if (this == null) return 0
