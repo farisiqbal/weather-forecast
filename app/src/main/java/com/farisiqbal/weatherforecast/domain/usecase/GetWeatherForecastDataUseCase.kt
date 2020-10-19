@@ -1,7 +1,6 @@
 package com.farisiqbal.weatherforecast.domain.usecase
 
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
-import com.farisiqbal.weatherforecast.data.api.SafeApiRequest
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import kotlinx.coroutines.Dispatchers
@@ -11,11 +10,11 @@ import kotlinx.coroutines.Dispatchers
  */
 class GetWeatherForecastDataUseCase(
     private val repository: WeatherForecastRepository
-): SafeApiRequest {
+): BaseUseCase() {
 
     suspend operator fun invoke(
         query: String,
-        forecastDayCount: Int = DEFAULT_FORECAST_DAYS_COUNT,
+        forecastDayCount: Int = DEFAULT_FORECAST_ITEM_COUNT,
         units: String = DEFAULT_UNIT
     ): ResultLoad<WeatherForecastResponse> {
         return safeApiCall(Dispatchers.IO) {
@@ -24,7 +23,7 @@ class GetWeatherForecastDataUseCase(
     }
 
     companion object {
-        const val DEFAULT_FORECAST_DAYS_COUNT: Int = 4
+        const val DEFAULT_FORECAST_ITEM_COUNT: Int = 24
         const val DEFAULT_UNIT: String = "metric"
     }
 }
