@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/weatherForecastFragment"
-        android:name="com.farisiqbal.weatherforecast.view.WeatherForecastFragment"
+        android:name="com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastFragment"
         tools:layout="@layout/weather_forecast_fragment"/>
 
 </navigation>

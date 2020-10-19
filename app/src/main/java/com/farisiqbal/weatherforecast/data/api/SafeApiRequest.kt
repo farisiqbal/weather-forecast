@@ -12,20 +12,20 @@ interface SafeApiRequest {
     suspend fun <T> safeApiCall(
         dispatcher: CoroutineDispatcher,
         apiCall: suspend () -> T
-    ): ApiResult<T> {
+    ): ResultLoad<T> {
         return withContext(dispatcher) {
             try {
-                ApiResult.Success(apiCall.invoke())
+                ResultLoad.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
                 when (throwable) {
                     is IOException -> {
-                        ApiResult.Error(ApiService.ERROR_NO_NETWORK)
+                        ResultLoad.Error(ApiService.ERROR_NO_NETWORK)
                     }
                     is HttpException -> {
-                        ApiResult.Error(throwable.message(), throwable.code())
+                        ResultLoad.Error(throwable.message(), throwable.code())
                     }
                     else -> {
-                        ApiResult.Error(ApiService.ERROR_DEFAULT)
+                        ResultLoad.Error(ApiService.ERROR_DEFAULT)
                     }
                 }
             }

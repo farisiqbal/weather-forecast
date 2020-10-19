@@ -13,6 +13,7 @@ class MainApp : Application() {
             modules(listOf(
                 apiModule,
                 repositoryModule,
+                useCaseModule,
                 viewModelModule
             ))
         }

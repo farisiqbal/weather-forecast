@@ -1,10 +1,11 @@
-package com.farisiqbal.weatherforecast.view
+package com.farisiqbal.weatherforecast.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.farisiqbal.weatherforecast.data.api.ApiResult
+import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastViewModel
 import io.mockk.coEvery
 import io.mockk.confirmVerified
 import io.mockk.mockk
@@ -38,7 +39,11 @@ class WeatherForecastViewModelTest {
     @Before
     fun setUp() {
         repository = mockk()
-        viewModel = WeatherForecastViewModel(repository, Dispatchers.Unconfined)
+        viewModel =
+            WeatherForecastViewModel(
+                repository,
+                Dispatchers.Unconfined
+            )
     }
 
     @Test
@@ -59,7 +64,7 @@ class WeatherForecastViewModelTest {
         // GIVEN
         coEvery {
             repository.getWeatherForecastData(viewModel.query, any(), any())
-        } returns ApiResult.Error("error_message", -1)
+        } returns ResultLoad.Error("error_message", -1)
         setupObservers()
 
         // WHEN
@@ -80,7 +85,7 @@ class WeatherForecastViewModelTest {
         val mockResponse: WeatherForecastResponse = mockk()
         coEvery {
             repository.getWeatherForecastData(viewModel.query, any(), any())
-        } returns ApiResult.Success(mockResponse)
+        } returns ResultLoad.Success(mockResponse)
         setupObservers()
 
         // WHEN

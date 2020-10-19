@@ -1,4 +1,4 @@
-package com.farisiqbal.weatherforecast.view
+package com.farisiqbal.weatherforecast.presentation
 
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso
@@ -7,11 +7,12 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.farisiqbal.weatherforecast.R
-import com.farisiqbal.weatherforecast.data.api.ApiResult
+import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.City
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecast
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastFragment
 import io.mockk.coEvery
 import io.mockk.mockk
 import org.junit.Test
@@ -33,7 +34,7 @@ class WeatherForecastInstrumentedTest {
         val mockForecasts = listOf(mockk<WeatherForecast>(relaxed = true))
         coEvery {
             repository.getWeatherForecastData(any(), any(), any())
-        } returns ApiResult.Success(
+        } returns ResultLoad.Success(
             WeatherForecastResponse(
                 city = mockCity,
                 cnt = 4,

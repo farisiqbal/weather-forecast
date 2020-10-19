@@ -1,4 +1,4 @@
-package com.farisiqbal.weatherforecast.view.adapter
+package com.farisiqbal.weatherforecast.presentation.forecast.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
