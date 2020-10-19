@@ -1,6 +1,5 @@
 package com.farisiqbal.weatherforecast.domain.repository
 
-import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
 
 /**
@@ -11,5 +10,5 @@ interface WeatherForecastRepository {
         query: String,
         forecastDayCount: Int,
         units: String
-    ) : ResultLoad<WeatherForecastResponse>
+    ) : WeatherForecastResponse
 }
