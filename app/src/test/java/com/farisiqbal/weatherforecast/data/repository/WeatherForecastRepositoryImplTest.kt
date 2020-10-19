@@ -1,9 +1,12 @@
 package com.farisiqbal.weatherforecast.data.repository
 
 import com.farisiqbal.weatherforecast.data.api.ApiService
-import io.mockk.coVerify
+import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
+import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,19 +29,18 @@ class WeatherForecastRepositoryImplTest {
 
     @Test
     fun getWeatherForecastData() {
-        // GIVEN
-        val mockQuery = "a query"
-        val mockCount = 12
-        val mockUnit = "a unit"
-
-        // WHEN
         runBlocking {
-            repository.getWeatherForecastData(mockQuery, mockCount, mockUnit)
-        }
+            // GIVEN
+            val mockResponse = mockk<WeatherForecastResponse>()
+            coEvery {
+                service.getForecasts(any(), any(), any())
+            } returns mockResponse
 
-        // THEN
-        coVerify {
-            service.getForecasts(mockQuery, mockCount, mockUnit)
+            // WHEN
+            val result = repository.getWeatherForecastData("a query", 123, "a unit")
+
+            // THEN
+            assertEquals(result.peekData, mockResponse)
         }
     }
 }

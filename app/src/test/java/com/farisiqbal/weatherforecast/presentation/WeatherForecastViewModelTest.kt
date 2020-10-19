@@ -4,13 +4,17 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.domain.usecase.GetWeatherForecastDataUseCase
 import com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastViewModel
 import io.mockk.coEvery
 import io.mockk.confirmVerified
 import io.mockk.mockk
+import io.mockk.spyk
 import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -21,6 +25,7 @@ import org.junit.runners.JUnit4
 /**
  * Created by farisiqbal on 31/05/2020
  */
+@ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
 class WeatherForecastViewModelTest {
 
@@ -29,27 +34,22 @@ class WeatherForecastViewModelTest {
     val instantExecutorRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: WeatherForecastViewModel
-    private lateinit var repository: WeatherForecastRepository
+    private lateinit var useCase: GetWeatherForecastDataUseCase
 
     // observers
-    private lateinit var forecastsObserver: Observer<WeatherForecastResponse>
-    private lateinit var loadingObserver: Observer<Boolean>
-    private lateinit var errorObserver: Observer<Boolean>
+    private lateinit var forecastResultLoadObserver: Observer<ResultLoad<WeatherForecastResponse>>
 
     @Before
     fun setUp() {
-        repository = mockk()
-        viewModel =
-            WeatherForecastViewModel(
-                repository,
-                Dispatchers.Unconfined
-            )
+        useCase = mockk()
+        viewModel = spyk(
+            WeatherForecastViewModel(useCase, Dispatchers.Unconfined)
+        )
     }
 
     @Test
     fun `setNewQuery would update query`() {
         // GIVEN
-        viewModel.query = "previous query"
         val newQuery = "a new query"
 
         // WHEN
@@ -60,71 +60,31 @@ class WeatherForecastViewModelTest {
     }
 
     @Test
-    fun `getForecastData failed`() {
-        // GIVEN
-        coEvery {
-            repository.getWeatherForecastData(viewModel.query, any(), any())
-        } returns ResultLoad.Error("error_message", -1)
-        setupObservers()
+    fun `getForecastData would set state to loading and update the result upon completion`() {
+        runBlockingTest {
+            // GIVEN
+            setupObservers()
+            val mockResult = ResultLoad.Success(mockk<WeatherForecastResponse>())
+            setMockResult(mockResult)
 
-        // WHEN
-        viewModel.getForecastData()
+            // WHEN
+            viewModel.getForecastData()
 
-        // THEN
-        verifyLoadingStarted()
-        verify {
-            errorObserver.onChanged(true)
-            loadingObserver.onChanged(false)
+            // THEN
+            forecastResultLoadObserver.onChanged(ResultLoad.Loading)
+            forecastResultLoadObserver.onChanged(mockResult)
         }
-        verifyObservers()
-    }
-
-    @Test
-    fun `getForecastData success`() {
-        // GIVEN
-        val mockResponse: WeatherForecastResponse = mockk()
-        coEvery {
-            repository.getWeatherForecastData(viewModel.query, any(), any())
-        } returns ResultLoad.Success(mockResponse)
-        setupObservers()
-
-        // WHEN
-        viewModel.getForecastData()
-
-        // THEN
-        verifyLoadingStarted()
-        verify {
-            forecastsObserver.onChanged(mockResponse)
-            loadingObserver.onChanged(false)
-        }
-        verifyObservers()
     }
 
     // supporting functions
     private fun setupObservers() {
-        forecastsObserver = mockk(relaxed = true)
-        loadingObserver = mockk(relaxed = true)
-        errorObserver = mockk(relaxed = true)
-
-        viewModel.run {
-            weatherForecastResponse.observeForever(forecastsObserver)
-            isLoading.observeForever(loadingObserver)
-            isError.observeForever(errorObserver)
-        }
+        forecastResultLoadObserver = mockk(relaxed = true)
+        viewModel.weatherDataResult.observeForever(forecastResultLoadObserver)
     }
 
-    private fun verifyObservers() {
-        confirmVerified(
-            forecastsObserver,
-            loadingObserver,
-            errorObserver
-        )
-    }
-
-    private fun verifyLoadingStarted() {
-        verify {
-            errorObserver.onChanged(false)
-            loadingObserver.onChanged(true)
-        }
+    private fun setMockResult(result: ResultLoad<WeatherForecastResponse>) {
+        coEvery {
+            useCase.invoke(viewModel.query, any(), any())
+        } returns result
     }
 }

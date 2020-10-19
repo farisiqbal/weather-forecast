@@ -4,7 +4,7 @@ import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.ApiService
 import com.farisiqbal.weatherforecast.data.api.SafeApiRequest
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
-import com.farisiqbal.weatherforecast.utils.getDailyData
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import kotlinx.coroutines.Dispatchers
 
 /**

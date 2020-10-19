@@ -11,7 +11,7 @@ import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.City
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecast
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastFragment
 import io.mockk.coEvery
 import io.mockk.mockk

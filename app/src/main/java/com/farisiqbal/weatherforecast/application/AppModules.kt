@@ -1,7 +1,7 @@
 package com.farisiqbal.weatherforecast.application
 
 import com.farisiqbal.weatherforecast.data.api.ApiService
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepositoryImpl
 import com.farisiqbal.weatherforecast.domain.usecase.GetWeatherForecastDataUseCase
 import com.farisiqbal.weatherforecast.presentation.forecast.WeatherForecastViewModel

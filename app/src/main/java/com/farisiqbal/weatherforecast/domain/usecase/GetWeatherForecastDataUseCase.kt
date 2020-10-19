@@ -2,7 +2,7 @@ package com.farisiqbal.weatherforecast.domain.usecase
 
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
+import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 
 /**
  * Created by farisiqbal on 19/10/2020
@@ -10,6 +10,7 @@ import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
 class GetWeatherForecastDataUseCase(
     private val repository: WeatherForecastRepository
 ) {
+
     suspend operator fun invoke(
         query: String,
         forecastDayCount: Int = DEFAULT_FORECAST_DAYS_COUNT,

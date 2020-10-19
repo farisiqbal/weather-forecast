@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.farisiqbal.weatherforecast.R
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecast
-import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepository
-import com.farisiqbal.weatherforecast.domain.usecase.GetWeatherForecastDataUseCase
 import com.farisiqbal.weatherforecast.presentation.forecast.adapter.WeatherForecastListAdapter
 import com.farisiqbal.weatherforecast.utils.setVisible
 import com.farisiqbal.weatherforecast.utils.toDegree
@@ -92,7 +90,7 @@ class WeatherForecastFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.setNewQuery(query ?: "")
-                viewModel.fetchForecastData()
+                viewModel.getForecastData()
                 return false
             }
 
@@ -104,7 +102,7 @@ class WeatherForecastFragment : Fragment() {
 
     private fun setupErrorLayout() {
         ivErrorIcon.setOnClickListener {
-            viewModel.fetchForecastData()
+            viewModel.getForecastData()
         }
     }
 

@@ -1,4 +1,4 @@
-package com.farisiqbal.weatherforecast.data.repository
+package com.farisiqbal.weatherforecast.domain.repository
 
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
