@@ -1,6 +1,7 @@
 package com.farisiqbal.weatherforecast.application
 
-import com.farisiqbal.weatherforecast.data.api.ApiService
+import com.farisiqbal.weatherforecast.data.api.service.ForecastsService
+import com.farisiqbal.weatherforecast.data.api.service.ServiceBuilder
 import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import com.farisiqbal.weatherforecast.data.repository.WeatherForecastRepositoryImpl
 import com.farisiqbal.weatherforecast.domain.usecase.GetWeatherForecastDataUseCase
@@ -13,7 +14,9 @@ import org.koin.dsl.module
  * Created by farisiqbal on 31/05/2020
  */
 val apiModule = module {
-    single { ApiService() }
+    single {
+        ServiceBuilder(ForecastsService::class.java)
+    }
 }
 
 val repositoryModule = module {

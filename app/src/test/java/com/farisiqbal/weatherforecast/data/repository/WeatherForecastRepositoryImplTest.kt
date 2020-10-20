@@ -1,7 +1,7 @@
 package com.farisiqbal.weatherforecast.data.repository
 
-import com.farisiqbal.weatherforecast.data.api.ApiService
 import com.farisiqbal.weatherforecast.data.api.response.WeatherForecastResponse
+import com.farisiqbal.weatherforecast.data.api.service.ForecastsService
 import com.farisiqbal.weatherforecast.domain.repository.WeatherForecastRepository
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -31,13 +31,14 @@ class WeatherForecastRepositoryImplTest {
         }
     }
 
-    private fun getMockService(response: WeatherForecastResponse) = object : ApiService {
-        override suspend fun getForecasts(
-            query: String,
-            count: Int,
-            page: String
-        ): WeatherForecastResponse {
-            return response
+    private fun getMockService(response: WeatherForecastResponse) =
+        object : ForecastsService {
+            override suspend fun getForecasts(
+                query: String,
+                count: Int,
+                page: String
+            ): WeatherForecastResponse {
+                return response
+            }
         }
-    }
 }

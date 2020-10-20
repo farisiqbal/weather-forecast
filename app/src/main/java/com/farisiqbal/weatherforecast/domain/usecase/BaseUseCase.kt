@@ -1,6 +1,5 @@
 package com.farisiqbal.weatherforecast.domain.usecase
 
-import com.farisiqbal.weatherforecast.data.api.ApiService
 import com.farisiqbal.weatherforecast.data.api.ResultLoad
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -20,11 +19,17 @@ abstract class BaseUseCase {
                 ResultLoad.Success(apiCall.invoke())
             } catch (error: Throwable) {
                 when (error) {
-                    is IOException -> ResultLoad.Error(ApiService.ERROR_NO_NETWORK)
+                    is IOException -> ResultLoad.Error(ERROR_NO_NETWORK)
                     is HttpException -> ResultLoad.Error(error.message(), error.code())
-                    else -> ResultLoad.Error(ApiService.ERROR_DEFAULT)
+                    else -> ResultLoad.Error(ERROR_DEFAULT)
                 }
             }
         }
+    }
+
+    companion object {
+        // error messages
+        const val ERROR_DEFAULT = "Request did not succeed"
+        const val ERROR_NO_NETWORK = "No network connection"
     }
 }

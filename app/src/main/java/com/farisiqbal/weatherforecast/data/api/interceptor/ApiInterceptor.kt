@@ -1,6 +1,6 @@
 package com.farisiqbal.weatherforecast.data.api.interceptor
 
-import com.farisiqbal.weatherforecast.data.api.ApiService
+import com.farisiqbal.weatherforecast.data.api.service.ServiceBuilder.APP_ID
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -12,7 +12,7 @@ class ApiInterceptor : Interceptor {
         val url = chain.request()
             .url()
             .newBuilder()
-            .addQueryParameter("appId", ApiService.APP_ID)
+            .addQueryParameter("appId", APP_ID)
             .build()
 
         val request = chain.request()
